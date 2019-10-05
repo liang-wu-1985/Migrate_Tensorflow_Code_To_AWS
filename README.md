@@ -13,3 +13,5 @@ https://fasttext.cc/docs/en/crawl-vectors.html
 For tokenizer, I used Sudachi rather than most popular Japansese Tokenizer Mecab. (https://github.com/WorksApplications/SudachiPy)
 
 The most advantage I can take is Sudachi has a feature called normalize can can help me normalize differen words which has same meaning.
+
+Such as 分かる、わかる、分った、判る、解る, they have different appearances but has same meaning.
