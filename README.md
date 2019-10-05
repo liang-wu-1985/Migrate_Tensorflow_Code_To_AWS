@@ -7,7 +7,7 @@ With Script Mode, you can use training scripts similar to those you would use ou
 
 ###SOME MEMO FOR NLP tasks###
 
-The pre-trained word2vector I used is from fasttext.as follows. (ja-300d)
+The pre-trained word2vector I used is from fasttext as follows. (ja-300d)
 https://fasttext.cc/docs/en/crawl-vectors.html
 
 For tokenizer, I used Sudachi rather than most popular Japansese Tokenizer Mecab. (https://github.com/WorksApplications/SudachiPy)
