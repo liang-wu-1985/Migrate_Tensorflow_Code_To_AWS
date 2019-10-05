@@ -19,7 +19,7 @@ from keras.utils import to_categorical
 
 # In[39]:
 
-
+#LOAD WORD2VECTOR
 def load_embeddings(path):
     with open(path,'rb') as f:
         emb_arr = pickle.load(f)
@@ -28,7 +28,7 @@ def load_embeddings(path):
 
 # In[40]:
 
-
+#BASIC CONFIGURATION FOR PROCESS TEXT
 BASE_DIR = ''
 FASTTEXT_EMBD = os.path.join(BASE_DIR, '/home/ec2-user/SageMaker/CX/word2vec/fasttext_300d.pkl')
 TEXT_DATA = os.path.join(BASE_DIR, '/home/ec2-user/SageMaker/CX/text_classfication_claims/processed_data/processed_claim.pkl')
@@ -40,7 +40,7 @@ VALIDATION_SPLIT = 0.3
 
 # In[41]:
 
-
+#LOAD FASTTEXT WORD2VECTOR WHICH IS 300D
 def load_fasttext(word_index,wv):
     
     x = list(tokenizer.word_counts.items())
@@ -67,7 +67,7 @@ def load_fasttext(word_index,wv):
 
 # In[42]:
 
-
+#SHOW HOW MANY VECTORS THIS PRE-TRAINED WORD EMBEDDING HAS
 embeddings_index = {}
 embeddings_index=load_embeddings(FASTTEXT_EMBD)
 print('Found %s word vectors.' % len(embeddings_index))
@@ -75,7 +75,7 @@ print('Found %s word vectors.' % len(embeddings_index))
 
 # In[43]:
 
-
+#LOAD PRE-PROCESSED TEXT FROM PICKLE, USE JAPANAESE TOKENIZER TO SPLIT WORD AS WELL AS NORMALIZE THEM
 processed_df=pd.read_pickle(TEXT_DATA)
 print('Shape of data tensor:', processed_df.shape)
 
@@ -87,13 +87,14 @@ texts = []  # list of text samples
 labels_nums=0 #numbers of lables
 labels = []  # list of label ids
 
+#INPUT AND TARGET FOR TRAINING
 texts=processed_df["comment"].values
 labels=processed_df[processed_df.columns[:-1]].values
 
 
 # In[45]:
 
-
+#CREATE TOkENIZER
 tokenizer = Tokenizer(num_words=MAX_NUM_WORDS)
 tokenizer.fit_on_texts(texts)
 sequences = tokenizer.texts_to_sequences(texts)
@@ -101,6 +102,7 @@ sequences = tokenizer.texts_to_sequences(texts)
 word_index = tokenizer.word_index
 print('Found %s unique tokens.' % len(word_index))
 
+#ADD PAD FOR EACH ENTRY
 data = pad_sequences(sequences, maxlen=MAX_SEQUENCE_LENGTH)
 labels_nums=labels.shape[1]
 
@@ -109,6 +111,8 @@ print('Shape of label tensor:', labels.shape)
 
 # split the data into a training set and a validation set
 indices = np.arange(data.shape[0])
+
+#FIX RANDOM
 np.random.seed=2019
 np.random.shuffle(indices)
 data = data[indices]
@@ -123,7 +127,7 @@ y_val = labels[-num_validation_samples:]
 
 # In[46]:
 
-
+#LOADING PRETRAINED VERCTOR
 num_words = min(MAX_NUM_WORDS, len(word_index)) + 1
 embedding_matrix = load_fasttext(word_index,embeddings_index)
 print('Found %s word vectors.' % len(embedding_matrix))
@@ -141,6 +145,7 @@ os.makedirs(val_dir, exist_ok=True)
 embedding_dir = os.path.join(os.getcwd(), 'data/embedding')
 os.makedirs(embedding_dir, exist_ok=True)
 
+#STORE TRAIN AND VAL DATA AS NP FOTMAT
 np.save(os.path.join(train_dir, 'x_train.npy'), x_train)
 np.save(os.path.join(train_dir, 'y_train.npy'), y_train)
 np.save(os.path.join(val_dir, 'x_val.npy'), x_val)
