@@ -1,7 +1,7 @@
 # Migrate_Tensorflow_Code_To_AWS
-TensorFlow's tf.keras API is used with Script Mode for a text classification task. An important aspect of the example is showing how to load preexisting word embeddings such as Fasttext in Script Mode
+Using Keras API.load pre-trained word embeddings such as Fasttext in Script Mode
 
-With Script Mode, you can use training scripts similar to those you would use outside SageMaker with SageMaker's prebuilt containers for various deep learning frameworks such TensorFlow, Keras, PyTorch, and Apache MXNet.
+With Script Mode, I can use training scripts similar to those you would use outside SageMaker with SageMaker's prebuilt containers for various deep learning frameworks such TensorFlow, Keras, PyTorch, and Apache MXNet.
 
 
 
