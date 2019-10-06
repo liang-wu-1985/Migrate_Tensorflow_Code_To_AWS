@@ -1,5 +1,5 @@
 # Migrate_Tensorflow_Code_To_AWS
-Using Keras API.load pre-trained word embeddings such as Fasttext in Script Mode
+Using Keras API, as well asload pre-trained word embeddings such as Fasttext in Script Mode
 
 With Script Mode, I can use training scripts similar to those you would use outside SageMaker with SageMaker's prebuilt containers for various deep learning frameworks such TensorFlow, Keras, PyTorch, and Apache MXNet.
 
